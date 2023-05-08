@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ViewDataController implements Initializable {
+public class ViewDataController{
     @FXML
     private Button botonCerrar;
     @FXML
@@ -30,10 +30,5 @@ public class ViewDataController implements Initializable {
     public void pasarDatos(Persona persona){
         fieldNombre.setText(persona.getNombre());
         fieldApellido.setText(persona.getApellido());
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }

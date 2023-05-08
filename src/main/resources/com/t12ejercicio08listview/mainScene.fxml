@@ -19,7 +19,7 @@
    <right>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Añadir" />
+            <Button fx:id="botonAnadir" mnemonicParsing="false" onAction="#pulsadoBoton" text="Añadir" />
             <Button fx:id="botonBorrar" mnemonicParsing="false" onAction="#pulsadoBoton" text="Borrar" />
             <Button fx:id="botonModificar" mnemonicParsing="false" onAction="#pulsadoBoton" text="Modificar" />
          </children>

@@ -24,8 +24,12 @@ public class MainSceneController implements Initializable {
     private Button botonBorrar;
     @FXML
     private Button botonModificar;
+    @FXML
+    private Button botonAnadir;
 
-    private Stage verDatosStage = new Stage();
+    private final Stage verDatosStage = new Stage();
+
+    private final Stage anadirPersonaStage = new Stage();
 
     private ObservableList<Persona> datos;
 
@@ -39,7 +43,44 @@ public class MainSceneController implements Initializable {
             case "botonBorrar":
                 datos.remove(listaDeDatos.getSelectionModel().getSelectedItem());
                 break;
+            case "botonModificar":
+                abrirModificar();
+                break;
+            case "botonAnadir":
+                abrirAnadir();
+                break;
         }
+    }
+
+    private void abrirAnadir(){
+        try {
+            if(!anadirPersonaStage.isShowing()){
+                FXMLLoader fxmlLoader = new FXMLLoader(ListViewApplication.class.getResource("modificarYAnadir.fxml"));
+                fxmlLoader.setController(new anadirController());
+                Scene scene = new Scene(fxmlLoader.load(), 465, 235);
+
+                anadirPersonaStage.setTitle("Añadir nueva persona");
+                anadirPersonaStage.setScene(scene);
+
+                anadirController controlador = fxmlLoader.getController();
+
+                Persona nuevaPersona = new Persona("", "");
+                controlador.pasarDatos(nuevaPersona);
+
+                anadirPersonaStage.showAndWait();
+                if(nuevaPersona.getApellido().length() > 0 && nuevaPersona.getNombre().length() > 0) {
+                    datos.add(nuevaPersona);
+                }
+            }else{
+                anadirPersonaStage.toFront();
+            }
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void abrirModificar(){
+
     }
 
     private void abrirVerDatos(){
@@ -60,9 +101,16 @@ public class MainSceneController implements Initializable {
 
             Persona personaSeleccionada = listaDeDatos.getSelectionModel().getSelectedItem();
             controlador.pasarDatos(personaSeleccionada);
+
         }catch(IOException ex){
             System.out.println("Sa roto");
         }
+    }
+
+    private void deshabilitarBotones(boolean valor){
+        verDatos.setDisable(valor);
+        botonBorrar.setDisable(valor);
+        botonModificar.setDisable(valor);
     }
 
     @Override
@@ -80,13 +128,9 @@ public class MainSceneController implements Initializable {
 
         listaDeDatos.getSelectionModel().selectedIndexProperty().addListener((valorObservable, valorAntiguo, valorNuevo) -> {
             if(listaDeDatos.getSelectionModel().getSelectedIndex() == -1){
-                verDatos.setDisable(true);
-                botonBorrar.setDisable(true);
-                botonModificar.setDisable(true);
+                deshabilitarBotones(true);
             }else{
-                verDatos.setDisable(false);
-                botonBorrar.setDisable(false);
-                botonModificar.setDisable(false);
+                deshabilitarBotones(false);
             }
         });
     }
