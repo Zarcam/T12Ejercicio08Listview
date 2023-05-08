@@ -28,8 +28,8 @@ public class MainSceneController implements Initializable {
     private Button botonAnadir;
 
     private final Stage verDatosStage = new Stage();
-
     private final Stage anadirPersonaStage = new Stage();
+    private final Stage modificarPersonaStage = new Stage();
 
     private ObservableList<Persona> datos;
 
@@ -80,28 +80,47 @@ public class MainSceneController implements Initializable {
     }
 
     private void abrirModificar(){
+        try {
+            if(!modificarPersonaStage.isShowing()){
+                FXMLLoader fxmlLoader = new FXMLLoader(ListViewApplication.class.getResource("modificarYAnadir.fxml"));
+                fxmlLoader.setController(new modificarController());
+                Scene scene = new Scene(fxmlLoader.load(), 465, 235);
 
+                modificarPersonaStage.setTitle("Modificar datos de persona");
+                modificarPersonaStage.setScene(scene);
+
+                modificarController controlador = fxmlLoader.getController();
+
+                Persona personaSeleccionada = listaDeDatos.getSelectionModel().getSelectedItem();
+                controlador.pasarDatos(personaSeleccionada);
+
+                modificarPersonaStage.showAndWait();
+                listaDeDatos.refresh();
+            }else{
+                modificarPersonaStage.toFront();
+            }
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     private void abrirVerDatos(){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(ListViewApplication.class.getResource("viewData.fxml"));
-
             if(!verDatosStage.isShowing()){
-            Scene scene = new Scene(fxmlLoader.load(), 465, 235);
+                FXMLLoader fxmlLoader = new FXMLLoader(ListViewApplication.class.getResource("viewData.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 465, 235);
 
-            verDatosStage.setTitle("Ver Datos Persona");
-            verDatosStage.setScene(scene);
-            verDatosStage.show();
+                verDatosStage.setTitle("Ver Datos Persona");
+                verDatosStage.setScene(scene);
+                verDatosStage.show();
+
+                ViewDataController controlador = fxmlLoader.getController();
+
+                Persona personaSeleccionada = listaDeDatos.getSelectionModel().getSelectedItem();
+                controlador.pasarDatos(personaSeleccionada);
             }else{
              verDatosStage.toFront();
             }
-
-            ViewDataController controlador = fxmlLoader.getController();
-
-            Persona personaSeleccionada = listaDeDatos.getSelectionModel().getSelectedItem();
-            controlador.pasarDatos(personaSeleccionada);
-
         }catch(IOException ex){
             System.out.println("Sa roto");
         }
