@@ -21,7 +21,7 @@ public class ViewDataController implements Initializable {
         stage.close();
     }
 
-    public void pasarDatos(String persona){
+    public void pasarDatos(Persona persona){
         System.out.println(persona);
     }
 

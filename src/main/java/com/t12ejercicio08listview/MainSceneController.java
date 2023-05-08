@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class MainSceneController implements Initializable {
     @FXML
-    private ListView<String> listaDeDatos;
+    private ListView<Persona> listaDeDatos;
     @FXML
     private Button verDatos;
 
@@ -55,12 +55,12 @@ public class MainSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<String> lista = new ArrayList<>();
+        ArrayList<Persona> lista = new ArrayList<>();
 
-        ObservableList<String> datos;
+        ObservableList<Persona> datos;
         datos = FXCollections.observableList(lista);
 
-        datos.add("Garcia, Paco");
+        datos.add(new Persona("Paco", "Garcia"));
 
         listaDeDatos.setItems(datos);
     }
