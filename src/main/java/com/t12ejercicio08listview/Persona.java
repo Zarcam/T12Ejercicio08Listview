@@ -5,12 +5,28 @@ public class Persona {
     private String apellido;
 
     Persona(String nuevoNombre, String nuevoApellido){
-        this.nombre = nuevoNombre;
-        this.apellido = nuevoApellido;
+        this.setNombre(nuevoNombre);
+        this.setApellido(nuevoApellido);
     }
 
     @Override
     public String toString(){
-        return (apellido + ", " + nombre);
+        return (getApellido() + ", " + getNombre());
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 }

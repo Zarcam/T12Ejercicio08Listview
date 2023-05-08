@@ -20,8 +20,14 @@ public class MainSceneController implements Initializable {
     private ListView<Persona> listaDeDatos;
     @FXML
     private Button verDatos;
+    @FXML
+    private Button botonBorrar;
+    @FXML
+    private Button botonModificar;
 
     private Stage verDatosStage = new Stage();
+
+    private ObservableList<Persona> datos;
 
     @FXML
     void pulsadoBoton(ActionEvent event){
@@ -30,24 +36,30 @@ public class MainSceneController implements Initializable {
             case "verDatos":
                 abrirVerDatos();
                 break;
+            case "botonBorrar":
+                datos.remove(listaDeDatos.getSelectionModel().getSelectedItem());
+                break;
         }
     }
 
     private void abrirVerDatos(){
         try {
-            if(!verDatosStage.isShowing()){
             FXMLLoader fxmlLoader = new FXMLLoader(ListViewApplication.class.getResource("viewData.fxml"));
+
+            if(!verDatosStage.isShowing()){
             Scene scene = new Scene(fxmlLoader.load(), 465, 235);
 
             verDatosStage.setTitle("Ver Datos Persona");
             verDatosStage.setScene(scene);
             verDatosStage.show();
-
-            ViewDataController controlador = fxmlLoader.<ViewDataController>getController();
-            controlador.pasarDatos(listaDeDatos.getItems().get(0));
             }else{
              verDatosStage.toFront();
             }
+
+            ViewDataController controlador = fxmlLoader.getController();
+
+            Persona personaSeleccionada = listaDeDatos.getSelectionModel().getSelectedItem();
+            controlador.pasarDatos(personaSeleccionada);
         }catch(IOException ex){
             System.out.println("Sa roto");
         }
@@ -57,11 +69,25 @@ public class MainSceneController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<Persona> lista = new ArrayList<>();
 
-        ObservableList<Persona> datos;
         datos = FXCollections.observableList(lista);
 
         datos.add(new Persona("Paco", "Garcia"));
+        datos.add(new Persona("Juan", "Perez"));
 
         listaDeDatos.setItems(datos);
+
+        listaDeDatos.getSelectionModel().select(0);
+
+        listaDeDatos.getSelectionModel().selectedIndexProperty().addListener((valorObservable, valorAntiguo, valorNuevo) -> {
+            if(listaDeDatos.getSelectionModel().getSelectedIndex() == -1){
+                verDatos.setDisable(true);
+                botonBorrar.setDisable(true);
+                botonModificar.setDisable(true);
+            }else{
+                verDatos.setDisable(false);
+                botonBorrar.setDisable(false);
+                botonModificar.setDisable(false);
+            }
+        });
     }
 }
