@@ -15,6 +15,22 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador de la escena principal en la que se encuentra la ListView que mostrará la información de las personas.<br>
+ * <br>
+ * Contiene los siguientes atributos:
+ * <ul>
+ *     <li><strong>ListView listaDatos: </strong>Objecto ListView que muestra el valor devuelto de la función toString() de los objetos Persona que almacena el atributo <strong>datos</strong></li>
+ *     <li><strong>Button verDatos: </strong>Boton que al ser pulsado abrirá la escena Ver Datos con los datos de la persona seleccionada</li>
+ *     <li><strong>Button botonBorrar: </strong>Boton que al ser pulsado borrará la persona seleccionada del atributo <strong>datos</strong></li>
+ *     <li><strong>Button botonModificar: </strong>Boton que al ser pulsado abrirá la escena Modificar Datos con los datos de la persona seleccionada</li>
+ *     <li><strong>Button botonAnadir: </strong>Boton que al ser pulsado abrirá la escena Añadir Persona</li>
+ *     <li><strong>Stage verDatosStage: </strong>Stage que mostrará la escena Ver Datos</li>
+ *     <li><strong>Stage anadirPersonaStage: </strong>Stage que mostrará la escena Añadir Persona</li>
+ *     <li><strong>Stage modificarPersonaStage: </strong>Stage que mostrará la escena Modificar Datos</li>
+ *     <li><strong>ObservableList datos: </strong>Almacenará los obejetos de clase Persona</li>
+ * </ul>
+ */
 public class MainSceneController implements Initializable {
     @FXML
     private ListView<Persona> listaDeDatos;
@@ -34,7 +50,7 @@ public class MainSceneController implements Initializable {
     private ObservableList<Persona> datos;
 
     @FXML
-    void pulsadoBoton(ActionEvent event){
+    private void pulsadoBoton(ActionEvent event){
         Button boton = (Button) event.getSource();
         switch(boton.getId()){
             case "verDatos":

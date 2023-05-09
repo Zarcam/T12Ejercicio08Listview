@@ -1,5 +1,13 @@
 package com.t12ejercicio08listview;
 
+/**
+ * Contiene atributos para guardar información de las personas que se mostrarán en la ListView:
+ * <ul>
+ *     <li><strong>String nombre: </strong>Nombre de la persona</li>
+ *     <li><strong>String apellido: </strong>Apellido de la persona</li>
+ * </ul>
+ * El metodo toString() está sobreescrito para devolver (nombre + ", " + apellido)
+ */
 public class Persona {
     private String nombre;
     private String apellido;

@@ -2,15 +2,21 @@ package com.t12ejercicio08listview;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
+/**
+ * Controlador de la escena Ver Datos en la cual se vera los datos de la persona seleccionada.<br>
+ * <br>
+ * Contiene los siguientes atributos:
+ * <ul>
+ *     <li><strong>TextField fieldNombre: </strong>Textfield donde se verá el nombre de la persona seleccionada</li>
+ *     <li><strong>TextField fieldApellido: </strong>Textfield donde se verá el apellido de la persona seleccionada</li>
+ *     <li><strong>Button botonCerrar: </strong>Boton que al ser pulsado cerrará la ventana</li>
+ * </ul>
+ * Es necesario llamar a la funcion pasarDatos() antes de mostrar la ventana.
+ */
 public class ViewDataController{
     @FXML
     private Button botonCerrar;
